@@ -1,75 +1,78 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-main() {
-  final router = GoRouter(routes: [
-    GoRoute(path: '/', builder: (context, state) => const ButtonScreen('/')),
-    GoRoute(
-        path: '/:first',
-        builder: (context, state) =>
-            ButtonScreen('/${state.pathParameters['first']!}/')),
-    GoRoute(
-        path: '/:first/:second',
-        builder: (context, state) => SumScreen(
-            state.pathParameters['first']!, state.pathParameters['second']!))
-  ]);
+class ListDataNotifier extends StateNotifier<List<String>> {
+  final SharedPreferences prefs;
+  ListDataNotifier(this.prefs) : super([]);
 
-  runApp(MaterialApp.router(routerConfig: router));
-}
-
-class ButtonScreen extends StatelessWidget {
-  final String pathPrefix;
-  const ButtonScreen(this.pathPrefix);
-
-  @override
-  Widget build(BuildContext context) {
-    List<ElevatedButton> buttons = [];
-    for (int i = 1; i < 6; i++) {
-      buttons.add(ElevatedButton(
-          onPressed: () => context.go('$pathPrefix$i'), child: Text("$i")));
+  _initialize() async {
+    if (prefs.containsKey('data')) {
+      state = prefs.getStringList('data')!;
     }
+  }
 
-    return Column(children: buttons);
+  addItem() async {
+    state = [...state, "${state.length + 1}"];
+    prefs.setStringList('data', state);
   }
 }
 
-class SumScreen extends StatelessWidget {
-  final String first;
-  final String second;
+final listDataProvider =
+    StateNotifierProvider<ListDataNotifier, List<String>>((ref) {
+  final ld = ListDataNotifier(ref.watch(sharedPreferencesProvider));
+  ld._initialize();
+  return ld;
+});
 
-  const SumScreen(this.first, this.second);
+final sharedPreferencesProvider =
+    Provider<SharedPreferences>((ref) => throw UnimplementedError());
+
+main() async {
+  final prefs = await SharedPreferences.getInstance();
+
+  runApp(ProviderScope(
+    overrides: [
+      sharedPreferencesProvider.overrideWithValue(prefs),
+    ],
+    child: ListApp(),
+  ));
+}
+
+class ListApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    int f = int.parse(first);
-    int s = int.parse(second);
-
-    return FutureBuilder<int>(
-        future: SumApi().sum(f, s),
-        builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text("Retrieving sum");
-          } else if (snapshot.hasError) {
-            return Text("Error retrieving sum: ${snapshot.error}");
-          } else if (!snapshot.hasData) {
-            return const Text("No data.");
-          } else {
-            int sum = snapshot.data!;
-            return Text('$f + $s = $sum');
-          }
-        });
+    return MaterialApp(
+      home: Scaffold(
+        body: Column(
+          children: [
+            AddWidget(),
+            ListWidget(),
+          ],
+        ),
+      ),
+    );
   }
 }
 
-class SumApi {
-  Future<int> sum(int first, int second) async {
-    var response = await http.post(
-      Uri.parse('https://fitech-api.deno.dev/sum-api'),
-      body: jsonEncode({'one': first, 'two': second}),
-    );
+class AddWidget extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final list = ref.watch(listDataProvider);
 
-    var data = jsonDecode(response.body);
-    return data['sum'];
+    return ElevatedButton(
+      onPressed: () => ref.watch(listDataProvider.notifier).addItem(),
+      child: Text('Items: ${list.length}'),
+    );
+  }
+}
+
+class ListWidget extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final list = ref.watch(listDataProvider);
+    return Column(
+      children: list.map((item) => Text(item)).toList(),
+    );
   }
 }
