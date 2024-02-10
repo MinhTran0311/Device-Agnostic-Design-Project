@@ -23,7 +23,10 @@ class TodoNotifier extends StateNotifier<List<Todo>> {
   }
 
   updateCompleted(Todo todo) async {
-    // do something here
+    await todoApi.updateCompleted(todo.id);
+    state[state.indexOf(todo)] = Todo.fromJson(
+        {"id": todo.id, "name": todo.name, "completed": !todo.completed});
+    state = [...state];
   }
 }
 
