@@ -32,6 +32,6 @@ class TodoApi {
   }
 
   Future<void> updateCompleted(int id) async {
-    http.post(Uri.parse('https://fitech-api.deno.dev/todos/$id'));
+    await http.post(Uri.parse('https://fitech-api.deno.dev/todos/$id'));
   }
 }
