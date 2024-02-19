@@ -1,17 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_application_1/injection_setup.dart';
+import 'package:flutter_application_1/routes/router.dart';
 
-import './todo_list.dart';
-import './todo_form.dart';
+main() async {
+  await initializeDependencies();
 
-void main() {
-  runApp(ProviderScope(child: TodoApp()));
-}
-
-class TodoApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(body: Column(children: [TodoForm(), TodoList()])));
-  }
+  runApp(MaterialApp.router(routerConfig: router));
 }
