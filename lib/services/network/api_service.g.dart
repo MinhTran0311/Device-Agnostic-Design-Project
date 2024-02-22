@@ -71,16 +71,18 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<dynamic> getAnswer(
+  Future<dynamic> checkAnswer(
     int topicId,
     int questionId,
+    Map<String, dynamic> answer,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(answer);
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
-      method: 'GET',
+      method: 'POST',
       headers: _headers,
       extra: _extra,
     )

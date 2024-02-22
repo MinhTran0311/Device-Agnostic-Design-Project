@@ -13,7 +13,7 @@ abstract class ApiService {
   @GET('/topics/{topicId}/questions')
   Future<dynamic> getQuestion(@Path("topicId") int topicId);
 
-  @GET('/topics/{topicId}/questions/{questionId}/answers')
-  Future<dynamic> getAnswer(
-      @Path("topicId") int topicId, @Path("questionId") int questionId);
+  @POST('/topics/{topicId}/questions/{questionId}/answers')
+  Future<dynamic> checkAnswer(@Path("topicId") int topicId,
+      @Path("questionId") int questionId, @Body() Map<String, dynamic> answer);
 }

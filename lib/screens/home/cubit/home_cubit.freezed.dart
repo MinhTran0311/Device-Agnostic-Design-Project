@@ -46,14 +46,14 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   @override
   $Res call({
     Object? topics = null,
-    Object? loadState = freezed,
+    Object? loadState = null,
   }) {
     return _then(_value.copyWith(
       topics: null == topics
           ? _value.topics
           : topics // ignore: cast_nullable_to_non_nullable
               as List<TopicModel>,
-      loadState: freezed == loadState
+      loadState: null == loadState
           ? _value.loadState
           : loadState // ignore: cast_nullable_to_non_nullable
               as LoadState,
@@ -84,14 +84,14 @@ class __$$HomeStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? topics = null,
-    Object? loadState = freezed,
+    Object? loadState = null,
   }) {
     return _then(_$HomeStateImpl(
       topics: null == topics
           ? _value._topics
           : topics // ignore: cast_nullable_to_non_nullable
               as List<TopicModel>,
-      loadState: freezed == loadState
+      loadState: null == loadState
           ? _value.loadState
           : loadState // ignore: cast_nullable_to_non_nullable
               as LoadState,
@@ -131,14 +131,13 @@ class _$HomeStateImpl implements _HomeState {
         (other.runtimeType == runtimeType &&
             other is _$HomeStateImpl &&
             const DeepCollectionEquality().equals(other._topics, _topics) &&
-            const DeepCollectionEquality().equals(other.loadState, loadState));
+            (identical(other.loadState, loadState) ||
+                other.loadState == loadState));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_topics),
-      const DeepCollectionEquality().hash(loadState));
+      runtimeType, const DeepCollectionEquality().hash(_topics), loadState);
 
   @JsonKey(ignore: true)
   @override
