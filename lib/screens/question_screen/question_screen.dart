@@ -9,19 +9,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class QuestionScreen extends StatefulWidget {
-  const QuestionScreen({super.key, required this.topicId});
+  const QuestionScreen({super.key, required this.topicId, required this.cubit});
 
   final int topicId;
+  final QuestionCubit cubit;
 
   @override
   State<QuestionScreen> createState() => _QuestionScreenState();
 }
 
 class _QuestionScreenState extends State<QuestionScreen> {
-  final _cubit = QuestionCubit();
+  late final QuestionCubit _cubit;
 
   @override
   void initState() {
+    _cubit = widget.cubit;
     _cubit.getQuestion(widget.topicId);
 
     super.initState();

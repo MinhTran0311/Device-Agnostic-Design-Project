@@ -12,9 +12,11 @@ part 'home_state.dart';
 part 'home_cubit.freezed.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeState());
+  HomeCubit({topicService})
+      : _topicService = topicService ?? injector.get<TopicService>(),
+        super(HomeState());
 
-  final _topicService = injector<TopicService>();
+  final _topicService;
 
   Future<void> getTopics() async {
     emit(state.copyWith(loadState: LoadState.loading));

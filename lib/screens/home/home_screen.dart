@@ -8,17 +8,18 @@ import 'package:go_router/go_router.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
+  const HomeScreen({super.key, required this.cubit});
+  final HomeCubit cubit;
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _cubit = HomeCubit();
+  late HomeCubit _cubit;
 
   @override
   void initState() {
+    _cubit = widget.cubit;
     _cubit.getTopics();
 
     super.initState();
@@ -26,39 +27,37 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) => _cubit,
-        child: BackGroundAndAppBar(
-            isHomePage: true,
-            body: BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
-              if (state.loadState.isLoading) {
-                return const LoadingIcon();
-              }
-              return SafeArea(
-                child: Column(
-                  children: [
-                    const Text(
-                      "Topics",
-                      style: TextStyle(fontSize: 24),
-                    ),
-                    SizedBox(height: 24),
-                    _buildGenericPractice(context),
-                    const SizedBox(height: 24),
-                    Expanded(
-                      child: ListView.separated(
-                          itemBuilder: (BuildContext context, int index) {
-                            return _buildTopicInfo(
-                                context, _cubit.state.topics[index]);
-                          },
-                          separatorBuilder: (context, index) =>
-                              const SizedBox(height: 24),
-                          itemCount: _cubit.state.topics.length),
-                    ),
-                    _buildAppInfo(),
-                  ],
+    return BackGroundAndAppBar(
+        isHomePage: true,
+        body: BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+          if (state.loadState.isLoading) {
+            return const LoadingIcon();
+          }
+          return SafeArea(
+            child: Column(
+              children: [
+                const Text(
+                  "Topics",
+                  style: TextStyle(fontSize: 24),
                 ),
-              );
-            })));
+                SizedBox(height: 24),
+                _buildGenericPractice(context),
+                const SizedBox(height: 24),
+                Expanded(
+                  child: ListView.separated(
+                      itemBuilder: (BuildContext context, int index) {
+                        return _buildTopicInfo(
+                            context, _cubit.state.topics[index]);
+                      },
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 24),
+                      itemCount: _cubit.state.topics.length),
+                ),
+                _buildAppInfo(),
+              ],
+            ),
+          );
+        }));
   }
 
   Widget _buildGenericPractice(BuildContext context) {
