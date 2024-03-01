@@ -26,7 +26,9 @@ final router = GoRouter(
           return BlocProvider(
             create: (context) => cubit,
             child: QuestionScreen(
-                topicId: int.parse(state.pathParameters['id']!), cubit: cubit),
+              topicId: int.parse(state.pathParameters['id']!),
+              cubit: cubit,
+            ),
           );
         }),
   ],

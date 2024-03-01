@@ -19,11 +19,10 @@ class QuestionScreen extends StatefulWidget {
 }
 
 class _QuestionScreenState extends State<QuestionScreen> {
-  late final QuestionCubit _cubit;
+  final QuestionCubit _cubit = QuestionCubit();
 
   @override
   void initState() {
-    _cubit = widget.cubit;
     _cubit.getQuestion(widget.topicId);
 
     super.initState();

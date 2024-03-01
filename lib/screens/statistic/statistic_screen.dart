@@ -37,11 +37,26 @@ class _StatisticScreenState extends State<StatisticScreen> {
                   child: Text("Result", style: const TextStyle(fontSize: 24)),
                 ),
                 SizedBox(height: 24),
+                InfoContainer(
+                    text:
+                        "Total correct answer: ${_calculateTotalCorrectAnswer()}"),
+                SizedBox(height: 24),
                 _buildStatisticResult(),
               ],
             );
           }))),
     );
+  }
+
+  int _calculateTotalCorrectAnswer() {
+    // Assuming _cubit.state.results is a Map<String, int> or similar
+    if (_cubit.state.results == null) {
+      return 0; // Or appropriate error handling
+    }
+
+    int totalCorrectAnswers = _cubit.state.results.values
+        .fold(0, (sum, element) => sum + (element as int));
+    return totalCorrectAnswers;
   }
 
   Widget _buildStatisticResult() {

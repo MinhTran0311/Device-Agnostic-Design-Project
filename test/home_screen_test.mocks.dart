@@ -5,11 +5,10 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 
-import 'package:flutter_application_1/screens/home/cubit/home_cubit.dart'
-    as _i2;
-import 'package:flutter_bloc/flutter_bloc.dart' as _i5;
+import 'package:flutter_application_1/models/topic.dart' as _i4;
+import 'package:flutter_application_1/services/topic_service.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i4;
+import 'package:mockito/src/dummies.dart' as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -24,64 +23,22 @@ import 'package:mockito/src/dummies.dart' as _i4;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeHomeState_0 extends _i1.SmartFake implements _i2.HomeState {
-  _FakeHomeState_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-/// A class which mocks [HomeCubit].
+/// A class which mocks [TopicService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockHomeCubit extends _i1.Mock implements _i2.HomeCubit {
-  MockHomeCubit() {
+class MockTopicService extends _i1.Mock implements _i2.TopicService {
+  MockTopicService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.HomeState get state => (super.noSuchMethod(
-        Invocation.getter(#state),
-        returnValue: _FakeHomeState_0(
-          this,
-          Invocation.getter(#state),
-        ),
-      ) as _i2.HomeState);
-
-  @override
-  _i3.Stream<_i2.HomeState> get stream => (super.noSuchMethod(
-        Invocation.getter(#stream),
-        returnValue: _i3.Stream<_i2.HomeState>.empty(),
-      ) as _i3.Stream<_i2.HomeState>);
-
-  @override
-  bool get isClosed => (super.noSuchMethod(
-        Invocation.getter(#isClosed),
-        returnValue: false,
-      ) as bool);
-
-  @override
-  _i3.Future<void> getTopics() => (super.noSuchMethod(
+  _i3.Future<List<_i4.TopicModel>> getTopics() => (super.noSuchMethod(
         Invocation.method(
           #getTopics,
           [],
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
-
-  @override
-  _i3.Future<void> saveTopicIds() => (super.noSuchMethod(
-        Invocation.method(
-          #saveTopicIds,
-          [],
-        ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i3.Future<List<_i4.TopicModel>>.value(<_i4.TopicModel>[]),
+      ) as _i3.Future<List<_i4.TopicModel>>);
 
   @override
   _i3.Future<String> getTheFewestCorrectTopic() => (super.noSuchMethod(
@@ -89,7 +46,7 @@ class MockHomeCubit extends _i1.Mock implements _i2.HomeCubit {
           #getTheFewestCorrectTopic,
           [],
         ),
-        returnValue: _i3.Future<String>.value(_i4.dummyValue<String>(
+        returnValue: _i3.Future<String>.value(_i5.dummyValue<String>(
           this,
           Invocation.method(
             #getTheFewestCorrectTopic,
@@ -97,74 +54,4 @@ class MockHomeCubit extends _i1.Mock implements _i2.HomeCubit {
           ),
         )),
       ) as _i3.Future<String>);
-
-  @override
-  _i3.Future<void> setGenericMode(bool? mode) => (super.noSuchMethod(
-        Invocation.method(
-          #setGenericMode,
-          [mode],
-        ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
-
-  @override
-  void emit(_i2.HomeState? state) => super.noSuchMethod(
-        Invocation.method(
-          #emit,
-          [state],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void onChange(_i5.Change<_i2.HomeState>? change) => super.noSuchMethod(
-        Invocation.method(
-          #onChange,
-          [change],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void addError(
-    Object? error, [
-    StackTrace? stackTrace,
-  ]) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #addError,
-          [
-            error,
-            stackTrace,
-          ],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void onError(
-    Object? error,
-    StackTrace? stackTrace,
-  ) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #onError,
-          [
-            error,
-            stackTrace,
-          ],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i3.Future<void> close() => (super.noSuchMethod(
-        Invocation.method(
-          #close,
-          [],
-        ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
 }

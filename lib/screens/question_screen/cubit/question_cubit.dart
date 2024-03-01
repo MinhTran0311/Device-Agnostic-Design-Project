@@ -13,10 +13,15 @@ part 'question_state.dart';
 part 'question_cubit.freezed.dart';
 
 class QuestionCubit extends Cubit<QuestionState> {
-  QuestionCubit() : super(QuestionState());
+  QuestionCubit({
+    QuestionService? questionService,
+    TopicService? topicService,
+  })  : _questionService = questionService ?? injector<QuestionService>(),
+        _topicService = topicService ?? injector<TopicService>(),
+        super(QuestionState());
 
-  final _questionService = injector<QuestionService>();
-  final _topicService = injector<TopicService>();
+  final QuestionService _questionService;
+  final TopicService _topicService;
 
   Future<void> getQuestion(int id) async {
     emit(state.copyWith(topicId: id, loadState: LoadState.loading));

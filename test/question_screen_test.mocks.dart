@@ -3,13 +3,14 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
-import 'package:flutter_application_1/screens/question_screen/cubit/question_cubit.dart'
-    as _i2;
-import 'package:flutter_bloc/flutter_bloc.dart' as _i5;
+import 'package:flutter_application_1/models/question.dart' as _i2;
+import 'package:flutter_application_1/models/topic.dart' as _i6;
+import 'package:flutter_application_1/services/question_service.dart' as _i3;
+import 'package:flutter_application_1/services/topic_service.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i4;
+import 'package:mockito/src/dummies.dart' as _i7;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -24,8 +25,8 @@ import 'package:mockito/src/dummies.dart' as _i4;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeQuestionState_0 extends _i1.SmartFake implements _i2.QuestionState {
-  _FakeQuestionState_0(
+class _FakeQuestionModel_0 extends _i1.SmartFake implements _i2.QuestionModel {
+  _FakeQuestionModel_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -34,137 +35,77 @@ class _FakeQuestionState_0 extends _i1.SmartFake implements _i2.QuestionState {
         );
 }
 
-/// A class which mocks [QuestionCubit].
+/// A class which mocks [QuestionService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockQuestionCubit extends _i1.Mock implements _i2.QuestionCubit {
-  MockQuestionCubit() {
+class MockQuestionService extends _i1.Mock implements _i3.QuestionService {
+  MockQuestionService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.QuestionState get state => (super.noSuchMethod(
-        Invocation.getter(#state),
-        returnValue: _FakeQuestionState_0(
-          this,
-          Invocation.getter(#state),
-        ),
-      ) as _i2.QuestionState);
-
-  @override
-  _i3.Stream<_i2.QuestionState> get stream => (super.noSuchMethod(
-        Invocation.getter(#stream),
-        returnValue: _i3.Stream<_i2.QuestionState>.empty(),
-      ) as _i3.Stream<_i2.QuestionState>);
-
-  @override
-  bool get isClosed => (super.noSuchMethod(
-        Invocation.getter(#isClosed),
-        returnValue: false,
-      ) as bool);
-
-  @override
-  _i3.Future<void> getQuestion(int? id) => (super.noSuchMethod(
+  _i4.Future<_i2.QuestionModel> getQuestion(int? id) => (super.noSuchMethod(
         Invocation.method(
           #getQuestion,
           [id],
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
-
-  @override
-  _i3.Future<void> checkAnswer(String? answer) => (super.noSuchMethod(
-        Invocation.method(
-          #checkAnswer,
-          [answer],
-        ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
-
-  @override
-  _i3.Future<void> setCorrectAnswer() => (super.noSuchMethod(
-        Invocation.method(
-          #setCorrectAnswer,
-          [],
-        ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
-
-  @override
-  _i3.Future<String> getTopicIdForNextQuestion() => (super.noSuchMethod(
-        Invocation.method(
-          #getTopicIdForNextQuestion,
-          [],
-        ),
-        returnValue: _i3.Future<String>.value(_i4.dummyValue<String>(
+        returnValue: _i4.Future<_i2.QuestionModel>.value(_FakeQuestionModel_0(
           this,
           Invocation.method(
-            #getTopicIdForNextQuestion,
+            #getQuestion,
+            [id],
+          ),
+        )),
+      ) as _i4.Future<_i2.QuestionModel>);
+
+  @override
+  _i4.Future<bool> checkAnswer(
+    int? topicId,
+    int? questionId,
+    String? answer,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #checkAnswer,
+          [
+            topicId,
+            questionId,
+            answer,
+          ],
+        ),
+        returnValue: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
+}
+
+/// A class which mocks [TopicService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockTopicService extends _i1.Mock implements _i5.TopicService {
+  MockTopicService() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Future<List<_i6.TopicModel>> getTopics() => (super.noSuchMethod(
+        Invocation.method(
+          #getTopics,
+          [],
+        ),
+        returnValue: _i4.Future<List<_i6.TopicModel>>.value(<_i6.TopicModel>[]),
+      ) as _i4.Future<List<_i6.TopicModel>>);
+
+  @override
+  _i4.Future<String> getTheFewestCorrectTopic() => (super.noSuchMethod(
+        Invocation.method(
+          #getTheFewestCorrectTopic,
+          [],
+        ),
+        returnValue: _i4.Future<String>.value(_i7.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getTheFewestCorrectTopic,
             [],
           ),
         )),
-      ) as _i3.Future<String>);
-
-  @override
-  void emit(_i2.QuestionState? state) => super.noSuchMethod(
-        Invocation.method(
-          #emit,
-          [state],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void onChange(_i5.Change<_i2.QuestionState>? change) => super.noSuchMethod(
-        Invocation.method(
-          #onChange,
-          [change],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void addError(
-    Object? error, [
-    StackTrace? stackTrace,
-  ]) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #addError,
-          [
-            error,
-            stackTrace,
-          ],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void onError(
-    Object? error,
-    StackTrace? stackTrace,
-  ) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #onError,
-          [
-            error,
-            stackTrace,
-          ],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i3.Future<void> close() => (super.noSuchMethod(
-        Invocation.method(
-          #close,
-          [],
-        ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+      ) as _i4.Future<String>);
 }
