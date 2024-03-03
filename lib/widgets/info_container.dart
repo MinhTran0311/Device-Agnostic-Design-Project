@@ -14,6 +14,6 @@ class InfoContainer extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             color: color ?? Color(0xFFF4F2DE)),
-        child: Text(text));
+        child: Center(child: Text(text)));
   }
 }

@@ -39,6 +39,7 @@ class _StatisticScreenState extends State<StatisticScreen> {
             ),
             SizedBox(height: 24),
             InfoContainer(
+                color: Colors.cyan,
                 text:
                     "Total correct answer: ${_calculateTotalCorrectAnswer()}"),
             SizedBox(height: 24),
@@ -50,9 +51,8 @@ class _StatisticScreenState extends State<StatisticScreen> {
   }
 
   int _calculateTotalCorrectAnswer() {
-    // Assuming _cubit.state.results is a Map<String, int> or similar
     if (_cubit.state.results == null) {
-      return 0; // Or appropriate error handling
+      return 0;
     }
 
     int totalCorrectAnswers = _cubit.state.results.values

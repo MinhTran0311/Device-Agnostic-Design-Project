@@ -5,5 +5,8 @@ import 'package:flutter_application_1/routes/router.dart';
 main() async {
   await initializeDependencies();
 
-  runApp(MaterialApp.router(routerConfig: router));
+  runApp(MaterialApp.router(
+    routerConfig: router,
+    debugShowCheckedModeBanner: false,
+  ));
 }

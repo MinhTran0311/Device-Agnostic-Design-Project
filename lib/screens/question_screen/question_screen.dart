@@ -47,6 +47,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 const SizedBox(height: 8),
                 _buildMultipleChoice(_cubit.state.question!),
                 _buildAnswerState(context),
+                const SizedBox(height: 24),
               ],
             );
           }))),
