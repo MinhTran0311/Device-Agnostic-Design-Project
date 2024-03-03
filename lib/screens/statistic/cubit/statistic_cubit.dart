@@ -11,9 +11,11 @@ part 'statistic_state.dart';
 part 'statistic_cubit.freezed.dart';
 
 class StatisticCubit extends Cubit<StatisticState> {
-  StatisticCubit() : super(StatisticState());
+  StatisticCubit({TopicService? topicService})
+      : _topicService = topicService ?? injector<TopicService>(),
+        super(StatisticState());
 
-  final _topicService = injector<TopicService>();
+  final TopicService _topicService;
 
   Future<void> getResult() async {
     emit(state.copyWith(loadState: LoadState.loading));

@@ -1,1 +1,4 @@
 This file preserves the otherwise empty folder and can be removed.
+flutter test --coverage
+lcov --remove coverage/lcov.info 'lib/**/*.g.dart' 'lib/**/*.freezed.dart' -o coverage/lcov.info
+open coverage/html/index.html

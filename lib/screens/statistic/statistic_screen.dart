@@ -6,16 +6,19 @@ import 'package:flutter_application_1/widgets/loading_icon.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class StatisticScreen extends StatefulWidget {
-  const StatisticScreen({super.key});
+  const StatisticScreen({super.key, this.cubit});
+
+  final cubit;
 
   @override
   State<StatisticScreen> createState() => _StatisticScreenState();
 }
 
 class _StatisticScreenState extends State<StatisticScreen> {
-  final _cubit = StatisticCubit();
+  late final _cubit;
   @override
   void initState() {
+    _cubit = widget.cubit;
     _cubit.getResult();
 
     super.initState();
@@ -24,27 +27,25 @@ class _StatisticScreenState extends State<StatisticScreen> {
   @override
   Widget build(BuildContext context) {
     return BackGroundAndAppBar(
-      body: BlocProvider(
-          create: (context) => _cubit,
-          child: Scaffold(body: BlocBuilder<StatisticCubit, StatisticState>(
-              builder: (context, state) {
-            if (state.loadState.isLoading) {
-              return const LoadingIcon();
-            }
-            return Column(
-              children: [
-                const Center(
-                  child: Text("Result", style: const TextStyle(fontSize: 24)),
-                ),
-                SizedBox(height: 24),
-                InfoContainer(
-                    text:
-                        "Total correct answer: ${_calculateTotalCorrectAnswer()}"),
-                SizedBox(height: 24),
-                _buildStatisticResult(),
-              ],
-            );
-          }))),
+      body: Scaffold(body: BlocBuilder<StatisticCubit, StatisticState>(
+          builder: (context, state) {
+        if (state.loadState.isLoading) {
+          return const LoadingIcon();
+        }
+        return Column(
+          children: [
+            const Center(
+              child: Text("Result", style: const TextStyle(fontSize: 24)),
+            ),
+            SizedBox(height: 24),
+            InfoContainer(
+                text:
+                    "Total correct answer: ${_calculateTotalCorrectAnswer()}"),
+            SizedBox(height: 24),
+            _buildStatisticResult(),
+          ],
+        );
+      })),
     );
   }
 
