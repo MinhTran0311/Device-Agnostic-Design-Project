@@ -90,12 +90,18 @@ class _HomeScreenState extends State<HomeScreen> {
       child: const Column(
         children: [
           Text(
-              "This app is used for checking your knowledge on some topics. When clicking one of the topic, you will have to answer the questions of that topic. Click the 'Next Question' button to move to the next question"),
+            "This app is used for checking your knowledge on some topics. When clicking one of the topic, you will have to answer the questions of that topic. Click the 'Next Question' button to move to the next question",
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 4,
+          ),
           SizedBox(
             height: 4,
           ),
           Text(
-              "You can choose the Generic Pratice to practice the weakness topic of your knowledge.")
+              "You can choose the Generic Pratice to practice the weakness topic of your knowledge.",
+              textAlign: TextAlign.center)
         ],
       ),
     );

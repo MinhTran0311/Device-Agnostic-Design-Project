@@ -16,10 +16,16 @@ You can choose the Generic Pratice to practice the weakness topic of your knowle
  - Learning new state management.
  - Using mockito and SharedPreferences.setMockInitialValues.
 
-  
+For the test coverage, due to some auto generated files, the following commands need to be run:
+flutter test --coverage
+lcov --remove coverage/lcov.info 'lib/**/*.g.dart' 'lib/**/*.freezed.dart' -o coverage/lcov.info
+open coverage/html/index.html  
+
+To run the project, first run:
+flutter pub get
+flutter pub run build_runner build
 
 List of dependencies and their versions:
-
     dependencies:
       flutter:
         sdk: flutter
